@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>البرنامج الانتخابي | مهدي رضا - جبهة المستقبل</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Amiri:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Tajawal', 'sans-serif'],
+          serif: ['Amiri', 'serif'],
+        },
+        colors: {
+          brand: {
+            green: '#0e6b41',
+            light: '#1b9948',
+            deep: '#0a3f28',
+            red: '#e30613',
+            gold: '#b08c3e',
+            cream: '#f8f5ec',
+            ink: '#162420',
+          }
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { background-color: #f8f5ec; color: #162420; }
+
+  ::selection { background-color: #0e6b41; color: #fff; }
+
+  .nav-link { position: relative; padding-bottom: 2px; }
+  .nav-link::after {
+    content: ""; position: absolute; right: 0; bottom: -2px; height: 2px; width: 0;
+    background: #e30613; transition: width .25s ease;
+  }
+  .nav-link:hover::after { width: 100%; }
+
+  .portrait-frame {
+    position: relative; padding: 10px;
+  }
+  .portrait-frame::before {
+    content: ""; position: absolute; inset: 0; border: 1.5px solid rgba(176,140,62,.55);
+    border-radius: 1.25rem;
+  }
+  .portrait-frame::after {
+    content: ""; position: absolute; inset: 10px; border-radius: .9rem;
+    box-shadow: 0 25px 50px -12px rgba(10,63,40,.45);
+  }
+
+  .timeline { border-inline-start: 2px solid rgba(176,140,62,.4); }
+  .timeline-item { position: relative; }
+  .timeline-item::before {
+    content: ""; position: absolute; inset-inline-start: -27px; top: 6px;
+    width: 10px; height: 10px; border-radius: 999px; background: #b08c3e;
+    box-shadow: 0 0 0 4px #f8f5ec;
+  }
+
+  .pillar-card { transition: transform .35s ease, box-shadow .35s ease; }
+  .pillar-card:hover { transform: translateY(-4px); }
+
+  .program-card { transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease; }
+  .program-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -8px rgba(10,63,40,.15);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp .7s ease both; }
+  .fade-up-1 { animation-delay: .05s; }
+  .fade-up-2 { animation-delay: .18s; }
+  .fade-up-3 { animation-delay: .3s; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-up { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid #b08c3e; outline-offset: 3px; border-radius: 4px;
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0; z-index: 0; opacity: .06;
+    background-image: radial-gradient(#fff 1px, transparent 1px);
+    background-size: 18px 18px;
+  }
+
+  /* طريقة الانتخاب */
+  .vote-instruction {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(176,140,62,0.5);
+    border-radius: 12px;
+    padding: 10px 18px;
+    margin-top: 10px;
+  }
+  .vote-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border: 2px solid #b08c3e;
+    border-radius: 6px;
+    font-weight: 900;
+    font-size: 1rem;
+    position: relative;
+    background: rgba(255,255,255,0.08);
+    color: white;
+    flex-shrink: 0;
+  }
+  .vote-box .x-mark {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #e30613;
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+  .vote-box .num {
+    opacity: 0.45;
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- شريط تنقل لاصق -->
+<nav class="sticky top-0 z-50 bg-brand-cream/90 backdrop-blur border-b border-brand-ink/10">
+  <div class="container mx-auto px-4 h-14 flex items-center justify-between">
+    <div class="flex items-center gap-2 font-extrabold text-brand-deep">
+      <span class="w-auto px-3 h-7 rounded-md bg-brand-red text-white flex items-center justify-center text-sm">القائمة رقم 3</span>
+      <span class="hidden sm:inline">مهدي رضا</span>
+    </div>
+    <div class="flex items-center gap-6 text-sm font-bold text-brand-ink/80">
+      <a href="#hero" class="nav-link">الرئيسية</a>
+      <a href="#masar" class="nav-link">المسيرة</a>
+      <a href="#program" class="nav-link">البرنامج</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header id="hero" class="relative bg-gradient-to-b from-brand-deep to-brand-green text-white overflow-hidden">
+  <div class="hero-dots"></div>
+  <div class="absolute -top-16 -left-16 text-brand-gold/10 text-[14rem] rotate-12">
+    <i class="fa-solid fa-scale-balanced"></i>
+  </div>
+
+  <div class="container mx-auto px-4 py-14 lg:py-20 relative z-10">
+    <div class="flex flex-col-reverse lg:flex-row items-center gap-10 lg:gap-14">
+
+      <div class="w-full lg:w-3/5 text-center lg:text-right fade-up fade-up-1">
+        <div class="inline-flex items-center gap-2 bg-white text-brand-deep font-bold text-sm px-5 py-1.5 rounded-full mb-6 shadow-sm">
+          <i class="fa-solid fa-handshake text-brand-red"></i>
+          جبهة المستقبل &nbsp;·&nbsp; حوار - استقرار - ازدهار
+        </div>
+
+        <h1 class="text-5xl lg:text-7xl font-black leading-[1.05] tracking-tight">
+          مهدي رضا
+        </h1>
+        <p class="font-serif italic text-xl lg:text-2xl text-brand-gold mt-4">
+          أستاذ التعليم العالي في القانون العام
+        </p>
+
+        <!-- طريقة الانتخاب -->
+        <div class="vote-instruction mb-6">
+          <span class="text-sm font-bold text-white/80">طريقة الانتخاب:</span>
+          <span class="text-sm text-white/70">ضع</span>
+          <div class="vote-box">
+            <span class="num">2</span>
+            <span class="x-mark">✕</span>
+          </div>
+          <span class="text-sm text-white/70">على الرقم <strong class="text-brand-gold">2</strong> في القائمة رقم <strong class="text-brand-gold">3</strong></span>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-9">
+          <div class="bg-brand-red px-5 py-2.5 rounded-lg font-bold flex items-center gap-3 shadow-lg">
+            <span class="text-2xl bg-white text-brand-red w-9 h-9 flex items-center justify-center rounded-md">3</span>
+            رقم القائمة
+          </div>
+          <div class="bg-white/10 border border-white/25 px-5 py-2.5 rounded-lg font-bold flex items-center gap-2">
+            <i class="fa-solid fa-calendar-check"></i>
+            الانتخابات التشريعية — 02 جويلية 2026
+          </div>
+        </div>
+
+        <p class="text-2xl lg:text-3xl font-extrabold">معاً .. لجزائر المستقبل</p>
+        <p class="font-serif italic text-brand-gold text-lg mt-1">نلتزم .. لنستطيع</p>
+      </div>
+
+      <div class="w-full lg:w-2/5 flex justify-center fade-up fade-up-2">
+        <div class="portrait-frame w-64 h-72 lg:w-80 lg:h-96">
+          <div class="relative w-full h-full rounded-2xl overflow-hidden bg-white/10 flex items-end justify-center">
+            <i class="fa-solid fa-user-tie text-8xl text-white/30 absolute"></i>
+            <img src="image.jpg" alt="صورة مهدي رضا" class="object-cover w-full h-full relative z-10" onerror="this.style.display='none'">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</header>
+
+<!-- المسيرة -->
+<section id="masar" class="container mx-auto px-4 py-16 lg:py-20">
+
+  <div class="text-center mb-4">
+    <div class="flex items-center justify-center gap-4 text-brand-gold text-2xl mb-5">
+      <i class="fa-solid fa-graduation-cap"></i>
+      <span class="w-8 h-px bg-brand-ink/20"></span>
+      <i class="fa-solid fa-scale-balanced"></i>
+      <span class="w-8 h-px bg-brand-ink/20"></span>
+      <i class="fa-solid fa-landmark"></i>
+    </div>
+    <h2 class="font-serif text-3xl lg:text-5xl font-bold text-brand-deep">بين العلم، والقانون، والسياسة</h2>
+    <p class="text-brand-ink/60 mt-4 max-w-2xl mx-auto">
+      مسيرة تمتد لأكثر من عقد، جمعت بين قاعة المحاضرات، وساحة القضاء، والعمل المؤسساتي.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-14">
+
+    <!-- الأكاديمي -->
+    <div class="pillar-card bg-white rounded-2xl border border-brand-ink/10 border-t-4 border-t-brand-gold p-7">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-brand-gold/10 text-brand-gold flex items-center justify-center text-xl">
+          <i class="fa-solid fa-graduation-cap"></i>
+        </div>
+        <h3 class="text-xl font-bold text-brand-deep">المسار الأكاديمي</h3>
+      </div>
+
+      <ul class="timeline ms-3 ps-7 space-y-5 text-sm">
+        <li class="timeline-item">
+          <span class="font-bold text-brand-deep">2010</span> — ماجستير قانون عام، جامعة الجزائر
+        </li>
+        <li class="timeline-item">
+          <span class="font-bold text-brand-deep">2015</span> — دكتوراه في القانون العام، جامعة الجزائر
+        </li>
+        <li class="timeline-item">
+          <span class="font-bold text-brand-deep">2017</span> — تأهيل جامعي، جامعة المدية
+        </li>
+        <li class="timeline-item">
+          <span class="font-bold text-brand-deep">2022</span> — رتبة أستاذ التعليم العالي (بروفيسور)
+        </li>
+      </ul>
+
+      <div class="mt-6 pt-5 border-t border-brand-ink/10 text-sm text-brand-ink/70 leading-relaxed space-y-1.5">
+        <p><i class="fa-solid fa-chalkboard-user text-brand-gold ms-1"></i> جامعة الجزائر (2010–2014)</p>
+        <p><i class="fa-solid fa-chalkboard-user text-brand-gold ms-1"></i> جامعة برج بوعريريج (2015–2018)</p>
+        <p><i class="fa-solid fa-chalkboard-user text-brand-gold ms-1"></i> جامعة محمد بوضياف، المسيلة (منذ 2018) — تخصص الدولة والمؤسسات العمومية</p>
+      </div>
+
+      <div class="flex flex-wrap gap-2 mt-5">
+        <span class="text-xs font-bold bg-brand-gold/10 text-brand-gold px-3 py-1 rounded-full">رئيس قسم الحقوق سابقاً</span>
+        <span class="text-xs font-bold bg-brand-gold/10 text-brand-gold px-3 py-1 rounded-full">عضو المجلس العلمي للجامعة</span>
+      </div>
+    </div>
+
+    <!-- القضائي -->
+    <div class="pillar-card bg-white rounded-2xl border border-brand-ink/10 border-t-4 border-t-brand-red p-7">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-brand-red/10 text-brand-red flex items-center justify-center text-xl">
+          <i class="fa-solid fa-scale-balanced"></i>
+        </div>
+        <h3 class="text-xl font-bold text-brand-deep">المسار القضائي</h3>
+      </div>
+
+      <ul class="space-y-5 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-gavel text-brand-red mt-1"></i>
+          <span>محضر قضائي ممارس لدى مجلس قضاء المسيلة، محكمة مقرة</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-magnifying-glass text-brand-red mt-1"></i>
+          <span>مفتش وطني لدى الغرفة الجهوية الوسطى للمحضرين القضائيين</span>
+        </li>
+      </ul>
+
+      <p class="mt-6 pt-5 border-t border-brand-ink/10 text-sm text-brand-ink/60 leading-relaxed">
+        خبرة ميدانية تجمع بين تطبيق النص القانوني والرقابة المهنية الدقيقة عليه.
+      </p>
+    </div>
+
+    <!-- السياسي -->
+    <div class="pillar-card bg-white rounded-2xl border border-brand-ink/10 border-t-4 border-t-brand-green p-7">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-xl bg-brand-green/10 text-brand-green flex items-center justify-center text-xl">
+          <i class="fa-solid fa-landmark"></i>
+        </div>
+        <h3 class="text-xl font-bold text-brand-deep">العمل السياسي والمؤسساتي</h3>
+      </div>
+
+      <ul class="space-y-5 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-people-group text-brand-green mt-1"></i>
+          <span>عضو المجلس الوطني لجبهة المستقبل، ممثلاً ولاية المسيلة</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-folder-open text-brand-green mt-1"></i>
+          <span>عضو المكتب الولائي المشرف على البرامج المحلية</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <i class="fa-solid fa-book-open-reader text-brand-green mt-1"></i>
+          <span>عضو المجلس العلمي لأكاديمية المستقبل للسياسات العمومية وتطوير المهارات</span>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <p class="text-center font-serif italic text-brand-deep text-lg mt-12 max-w-3xl mx-auto">
+    خبرة تجمع بين عمق البحث الأكاديمي، ودقة الممارسة القضائية، ووعي العمل المؤسساتي والسياسي.
+  </p>
+</section>
+
+<!-- البرنامج الانتخابي -->
+<section id="program" class="bg-white border-y border-brand-ink/10">
+<div class="container mx-auto px-4 py-16 lg:py-20">
+
+  <div class="text-center mb-14">
+    <h2 class="text-4xl font-black text-brand-deep relative inline-block">
+      البرنامج الانتخابي
+      <span class="absolute -bottom-3 right-1/2 translate-x-1/2 w-20 h-1.5 bg-brand-red rounded-full"></span>
+    </h2>
+    <p class="text-brand-ink/60 mt-6 max-w-2xl mx-auto">
+      التزام بالعمل الجاد والمرافعة بقوة في قبة البرلمان لخدمة ولاية المسيلة والوطن.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7">
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-chart-line"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">التشغيل والاقتصاد</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المرافعة لتذليل العقبات أمام الاستثمار المحلي بالمسيلة</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>اقتراح وتعديل قوانين لدعم المؤسسات الناشئة والشباب</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>إيصال انشغالات الفلاحين والتجار للسلطات المركزية</span></li>
+      </ul>
+    </div>
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-heart-pulse"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">الصحة</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المطالبة المستمرة بتغطية العجز في الأطباء الأخصائيين</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>نقل انشغالات المرضى ونقابات الصحة للوزارة الوصية</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المرافعة لتوفير أجهزة طبية حديثة لمستشفيات الولاية</span></li>
+      </ul>
+    </div>
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-graduation-cap"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">التعليم والتكوين</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>الدفاع عن المطالب المشروعة للأسرة التربوية والجامعية</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>تحسين ظروف التمدرس (النقل، الإطعام) في المناطق المعزولة</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>السعي لفتح تخصصات جامعية جديدة تتماشى مع سوق العمل</span></li>
+      </ul>
+    </div>
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-person-running"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">الشباب والرياضة</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المطالبة برفع الميزانيات المخصصة للنوادي الرياضية المحلية</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المرافعة لتسجيل مشاريع مرافق شبانية وترفيهية جديدة</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>دعم مبادرات الجمعيات وإيصال صوتها للسلطات العليا</span></li>
+      </ul>
+    </div>
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-city"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">التنمية المحلية</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المتابعة والمساءلة حول تأخر المشاريع التنموية بالولاية</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>المطالبة برفع حصص ولاية المسيلة من البرامج السكنية</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>التدخل لدى الوزارات المعنية لفك العزلة عن البلديات النائية</span></li>
+      </ul>
+    </div>
+
+    <div class="program-card bg-brand-cream rounded-2xl p-7 border border-brand-ink/10">
+      <div class="w-14 h-14 bg-brand-green/10 text-brand-green rounded-xl flex items-center justify-center text-2xl mb-5">
+        <i class="fa-solid fa-scale-balanced"></i>
+      </div>
+      <h3 class="text-xl font-bold text-brand-deep mb-4 pb-3 border-b border-brand-ink/10">الشفافية والعمل البرلماني</h3>
+      <ul class="space-y-3 text-sm text-brand-ink/75 leading-relaxed">
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>فتح مداومة برلمانية للاستماع الدائم لانشغالات المواطنين</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>إعلام المواطنين بشفافية حول القوانين والمشاريع المناقشة</span></li>
+        <li class="flex items-start gap-2.5"><i class="fa-solid fa-check text-brand-red mt-1"></i><span>ممارسة الدور الرقابي على الجهاز التنفيذي بكل مسؤولية</span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-brand-deep text-white py-10">
+  <div class="container mx-auto px-4 text-center flex flex-col items-center gap-3">
+    <h3 class="text-2xl font-bold">جبهة المستقبل</h3>
+    <p class="text-brand-gold font-bold">حوار - استقرار - ازدهار</p>
+    <a href="http://www.moustakbal.dz" target="_blank" class="mt-4 inline-flex items-center gap-2 bg-white/10 hover:bg-white/15 px-6 py-2 rounded-full transition-colors border border-white/15">
+      <i class="fa-solid fa-globe"></i>
+      www.moustakbal.dz
+    </a>
+    <p class="text-xs mt-8 opacity-50">© 2026 جميع الحقوق محفوظة لحملة مهدي رضا</p>
+  </div>
+</footer>
+
+</body>
+</html>
