@@ -837,6 +837,86 @@ a:focus-visible {
   transition-duration:.01ms!important
 }
 }
+  
+/* Compact navigation fix */
+.topbar {
+  min-height: 52px;
+}
+
+.nav {
+  min-height: 52px;
+  padding-block: 0;
+}
+
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  font-size: .95rem;
+}
+
+.list-number {
+  padding: 4px 9px;
+  font-size: .78rem;
+}
+
+.nav-links {
+  gap: clamp(8px, 2vw, 22px);
+  font-size: .86rem;
+}
+
+.nav-links a {
+  padding-block: 5px;
+}
+
+@media(max-width:640px) {
+  .topbar {
+    position: sticky;
+  }
+
+  .nav {
+    min-height: 48px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 4px;
+    gap: 8px;
+  }
+
+  .brand {
+    flex: 0 0 auto;
+    gap: 7px;
+    font-size: .9rem;
+  }
+
+  .brand-mark {
+    width: 30px;
+    height: 30px;
+  }
+
+  .list-number {
+    display: none;
+  }
+
+  .nav-links {
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 0;
+    font-size: .8rem;
+    white-space: nowrap;
+    scrollbar-width: none;
+  }
+
+  .nav-links::-webkit-scrollbar {
+    display: none;
+  }
+
+  .nav-links a {
+    padding-block: 4px;
+  }
+}
+
   </style>
   </head>
   <body>
@@ -917,7 +997,7 @@ a:focus-visible {
                 <i class="fa-solid fa-calendar-check">
                 </i>
                 <span>
-                  الانتخابات التشريعية · 02 جويلية 2026 · 
+                  الانتخابات التشريعية · 02 جويلية 2026 ·
                 </span>
               </div>
             </div>
